@@ -34,7 +34,7 @@ public class FrmMultiplicacion extends JFrame {
         btnCalcular.setBounds(10, 70, 100, 25);
         getContentPane().add(btnCalcular);
         btnCalcular.addActionListener(evt -> {
-                calcular();
+            calcular();
         });
 
         txtResultado = new JTextField();
@@ -50,9 +50,38 @@ public class FrmMultiplicacion extends JFrame {
     }
 
     private void calcular() {
+//obtener datos de entrada
+        int numero1 = Integer.parseInt(txtNumero1.getText());
+        int numero2 = Integer.parseInt(txtNumero2.getText());
 
+        int _numero1 = numero1;
+        int _numero2 = numero2;
+
+        //proceso
+        int resultado = 0;
+        while (numero1 >= 1) {
+            if (numero1 % 2 == 1) {
+                resultado += numero2;
+            }
+            numero1 /= 2; // numero1 = numero1 / 2;
+            numero2 *= 2; // numero2 = numero2 * 2;
+        }
+
+        //mostrar resultados
+        txtResultado.setText(String.valueOf(resultado));
+        txtResultadoR.setText(String.valueOf(multiplicacionRusa(_numero1, _numero2)));
     }
 
-
-
+    private int multiplicacionRusa(int n1, int n2) {
+        //punto de detención
+        if (n1 <= 1) {
+            return n1 == 0 ? 0 : n2;
+        } else {
+            if (n1 % 2 == 1) {
+                return n2 + multiplicacionRusa(n1 / 2, n2 * 2);
+            } else {
+                return multiplicacionRusa(n1 / 2, n2 * 2);
+            }
+        }
+    }
 }
